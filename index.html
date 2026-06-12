@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NOZOMI 先行登録 | Demand First Marketplace</title>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;700;800&family=DM+Mono:wght@400;500&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink:      #122620;
+  --white:    #ffffff;
+  --blue:     #0d9466;
+  --blue-d:   #0a7a54;
+  --blue-l:   #d1fae5;
+  --blue-xl:  #ecfdf5;
+  --red:      #f59e0b;
+  --g50:      #f3f8f6;
+  --g100:     #e6efeb;
+  --g200:     #cfdfd8;
+  --g300:     #96aa9f;
+  --g400:     #5f7d6f;
+  --g500:     #3a554b;
+  --g600:     #2c4239;
+  --g700:     #1e3029;
+  --green:    #059669;
+  --green-l:  #d1fae5;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Noto Sans JP', sans-serif;
+  background: var(--white);
+  color: var(--ink);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ===== NAV ===== */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  height: 56px;
+  background: rgba(255,255,255,0.95);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--g200);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 40px;
+}
+.nav-logo {
+  font-family: 'Shippori Mincho', serif;
+  font-size: 20px; font-weight: 800; letter-spacing: 0.06em;
+  color: var(--ink);
+}
+.nav-logo span { color: var(--red); }
+.nav-tag {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--g500);
+}
+
+/* ===== HERO ===== */
+.hero {
+  padding: 120px 40px 80px;
+  max-width: 680px;
+  margin: 0 auto;
+  text-align: center;
+  position: relative;
+}
+
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--blue-l); color: var(--blue-d);
+  border: 1px solid rgba(13,148,102,0.25);
+  border-radius: 99px;
+  padding: 6px 16px; font-size: 12px; font-weight: 500;
+  margin-bottom: 32px;
+  animation: fadeUp 0.6s ease both;
+}
+.hero-badge::before {
+  content: '';
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--blue);
+  animation: pulse 2s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.8); }
+}
+
+.hero-h1 {
+  font-family: 'Shippori Mincho', serif;
+  font-size: clamp(36px, 7vw, 56px);
+  font-weight: 700; line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--ink); margin-bottom: 20px;
+  animation: fadeUp 0.6s 0.1s ease both;
+}
+.hero-h1 em { font-style: italic; font-weight: 400; color: var(--blue); }
+
+.hero-desc {
+  font-size: 16px; font-weight: 400;
+  color: var(--g600); line-height: 1.85;
+  margin-bottom: 16px;
+  animation: fadeUp 0.6s 0.2s ease both;
+}
+.hero-desc strong { color: var(--ink); font-weight: 700; }
+
+.hero-note {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px; letter-spacing: 0.08em;
+  color: var(--g500); margin-bottom: 48px;
+  animation: fadeUp 0.6s 0.25s ease both;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ===== BENEFITS ===== */
+.benefits {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 12px; margin-bottom: 52px;
+  animation: fadeUp 0.6s 0.3s ease both;
+}
+.benefit {
+  background: var(--white); border: 1.5px solid var(--g200);
+  border-radius: 10px; padding: 18px 14px; text-align: left;
+}
+.benefit-icon { font-size: 20px; margin-bottom: 8px; }
+.benefit-title { font-size: 13px; font-weight: 700; color: var(--ink); margin-bottom: 4px; }
+.benefit-desc { font-size: 12px; font-weight: 400; color: var(--g600); line-height: 1.6; }
+
+/* ===== FORM ===== */
+.form-wrap {
+  background: var(--white);
+  border: 1px solid var(--g200);
+  border-radius: 16px;
+  padding: 36px 40px;
+  box-shadow: 0 4px 24px rgba(15,23,42,0.06), 0 1px 4px rgba(15,23,42,0.04);
+  animation: fadeUp 0.6s 0.35s ease both;
+  text-align: left;
+}
+
+.form-title {
+  font-family: 'Shippori Mincho', serif;
+  font-size: 20px; font-weight: 700; color: var(--ink);
+  margin-bottom: 6px;
+}
+.form-subtitle {
+  font-size: 13px; color: var(--g600); font-weight: 400;
+  margin-bottom: 28px; line-height: 1.6;
+}
+
+.field { margin-bottom: 20px; }
+.field-label {
+  display: block; font-size: 13px; font-weight: 700;
+  color: var(--ink); margin-bottom: 7px;
+}
+.field-label span {
+  font-size: 10px; color: var(--red);
+  margin-left: 4px; font-weight: 500;
+}
+.field-label .opt {
+  font-size: 10px; color: var(--g500);
+  margin-left: 4px; font-weight: 400;
+}
+
+.field-input {
+  width: 100%;
+  background: var(--white); color: var(--ink);
+  border: 1.5px solid var(--g300);
+  border-radius: 8px;
+  padding: 12px 14px; font-size: 14px;
+  font-family: 'Noto Sans JP', sans-serif;
+  outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+}
+.field-input:focus {
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px rgba(13,148,102,0.12);
+}
+.field-input::placeholder { color: var(--g400); }
+
+.field-textarea {
+  width: 100%;
+  background: var(--white); color: var(--ink);
+  border: 1.5px solid var(--g300);
+  border-radius: 8px;
+  padding: 12px 14px; font-size: 14px;
+  font-family: 'Noto Sans JP', sans-serif;
+  outline: none; resize: vertical; min-height: 100px;
+  transition: border-color 0.15s, box-shadow 0.15s;
+  line-height: 1.7;
+}
+.field-textarea:focus {
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px rgba(13,148,102,0.12);
+}
+.field-textarea::placeholder { color: var(--g400); }
+
+.field-select {
+  width: 100%;
+  background: var(--white); color: var(--ink);
+  border: 1.5px solid var(--g300);
+  border-radius: 8px;
+  padding: 12px 14px; font-size: 14px;
+  font-family: 'Noto Sans JP', sans-serif;
+  outline: none; cursor: pointer;
+  transition: border-color 0.15s;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236b7a96' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+}
+.field-select:focus { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(13,148,102,0.12); }
+
+.checkbox-group { display: flex; flex-direction: column; gap: 10px; }
+.checkbox-item {
+  display: flex; align-items: center; gap: 10px;
+  cursor: pointer;
+}
+.checkbox-item input[type="checkbox"] {
+  width: 18px; height: 18px; flex-shrink: 0;
+  accent-color: var(--blue); cursor: pointer;
+}
+.checkbox-label { font-size: 13px; font-weight: 400; color: var(--g700); line-height: 1.5; }
+
+.divider {
+  border: none; border-top: 1px solid var(--g100);
+  margin: 24px 0;
+}
+
+.submit-btn {
+  width: 100%;
+  background: var(--blue); color: var(--white);
+  border: none; border-radius: 10px;
+  padding: 15px; font-size: 15px; font-weight: 700;
+  font-family: 'Noto Sans JP', sans-serif;
+  cursor: pointer; letter-spacing: 0.03em;
+  transition: all 0.2s;
+  position: relative; overflow: hidden;
+}
+.submit-btn:hover { background: var(--blue-d); transform: translateY(-1px); box-shadow: 0 6px 20px rgba(13,148,102,0.3); }
+.submit-btn:active { transform: translateY(0); }
+.submit-btn::after { content: ' →'; opacity: 0.7; }
+.submit-btn:disabled { background: var(--g300); cursor: not-allowed; transform: none; box-shadow: none; }
+
+.form-privacy {
+  font-size: 12px; color: var(--g500); text-align: center;
+  margin-top: 14px; line-height: 1.6;
+}
+
+/* ===== SUCCESS STATE ===== */
+.success-wrap {
+  display: none;
+  text-align: center; padding: 48px 32px;
+}
+.success-icon {
+  width: 64px; height: 64px; border-radius: 50%;
+  background: var(--green-l); border: 2px solid var(--green);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 28px; margin: 0 auto 20px;
+  animation: scaleIn 0.4s ease;
+}
+@keyframes scaleIn {
+  from { transform: scale(0.5); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+.success-title {
+  font-family: 'Shippori Mincho', serif;
+  font-size: 24px; font-weight: 700; color: var(--ink);
+  margin-bottom: 12px;
+}
+.success-desc {
+  font-size: 14px; color: var(--g600); line-height: 1.8;
+  margin-bottom: 28px; font-weight: 400;
+}
+.success-share {
+  font-size: 13px; color: var(--g600); margin-bottom: 16px;
+}
+.share-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--ink); color: var(--white);
+  border: none; border-radius: 8px;
+  padding: 12px 24px; font-size: 13px; font-weight: 700;
+  font-family: 'Noto Sans JP', sans-serif;
+  cursor: pointer; text-decoration: none;
+  transition: background 0.15s;
+}
+.share-btn:hover { background: var(--g700); }
+
+/* ===== SOCIAL PROOF ===== */
+.proof {
+  max-width: 680px; margin: 48px auto 0;
+  padding: 0 40px 40px;
+  animation: fadeUp 0.6s 0.4s ease both;
+}
+.proof-title {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--g400); text-align: center; margin-bottom: 20px;
+}
+.proof-items {
+  display: flex; flex-direction: column; gap: 14px;
+}
+.proof-item {
+  background: var(--g50); border: 1px solid var(--g200);
+  border-radius: 10px; padding: 16px 18px;
+  display: flex; gap: 14px; align-items: flex-start;
+}
+.proof-avatar {
+  width: 36px; height: 36px; border-radius: 50%;
+  background: var(--blue-l); border: 1px solid rgba(13,148,102,0.25);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px; flex-shrink: 0;
+}
+.proof-name { font-size: 13px; font-weight: 700; color: var(--ink); margin-bottom: 3px; }
+.proof-text { font-size: 13px; color: var(--g600); line-height: 1.6; font-weight: 400; }
+
+/* ===== FOOTER ===== */
+footer {
+  background: var(--ink); color: rgba(255,255,255,0.4);
+  padding: 24px 40px;
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 11px; margin-top: 60px;
+}
+.footer-logo {
+  font-family: 'Shippori Mincho', serif;
+  font-size: 16px; font-weight: 800; color: rgba(255,255,255,0.7);
+}
+.footer-logo span { color: var(--red); }
+
+/* ===== COUNTER ===== */
+.counter-wrap {
+  display: flex; align-items: center; justify-content: center;
+  gap: 8px; margin-bottom: 40px;
+  animation: fadeUp 0.6s 0.28s ease both;
+}
+.counter-num {
+  font-family: 'DM Mono', monospace;
+  font-size: 28px; font-weight: 500; color: var(--blue);
+  line-height: 1;
+}
+.counter-label { font-size: 13px; color: var(--g500); }
+.counter-divider { width: 1px; height: 28px; background: var(--g200); }
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 600px) {
+  .nav { padding: 0 20px; }
+  .nav-tag { display: none; }
+  .hero { padding: 100px 20px 60px; }
+  .benefits { grid-template-columns: 1fr; }
+  .form-wrap { padding: 28px 20px; }
+  .proof { padding: 0 20px 40px; }
+  footer { padding: 20px; flex-direction: column; gap: 8px; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-logo">NOZOMI<span>.</span></div>
+  <div class="nav-tag">Early Access</div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">β版 2026年公開予定</div>
+
+  <h1 class="hero-h1">
+    欲しいものを<br>
+    <em>投稿する</em>だけ。<br>
+    売り手が集まる。
+  </h1>
+
+  <p class="hero-desc">
+    メルカリの<strong>逆</strong>。買い手が需要を投稿すると、<br>
+    持っている人が集まって提案する新しいマーケット。<br>
+    <strong>探す人と持つ人が、助け合える場所</strong>を作ります。
+  </p>
+
+  <p class="hero-note">※ 登録は無料。メール以外の個人情報は不要です。</p>
+
+  <!-- カウンター -->
+  <div class="counter-wrap">
+    <div>
+      <div class="counter-num" id="counter">0</div>
+      <div class="counter-label" style="font-size:12px; color:var(--g500); margin-top:2px;">人が登録済み</div>
+    </div>
+    <div class="counter-divider"></div>
+    <div>
+      <div class="counter-num" style="color:var(--red);">残り</div>
+      <div class="counter-label" style="font-size:12px; color:var(--g500); margin-top:2px;">β版枠 100人限定</div>
+    </div>
+  </div>
+
+  <!-- ベネフィット -->
+  <div class="benefits">
+    <div class="benefit">
+      <div class="benefit-icon">🚀</div>
+      <div class="benefit-title">β版を最初に体験</div>
+      <div class="benefit-desc">正式リリース前に誰よりも早く使える</div>
+    </div>
+    <div class="benefit">
+      <div class="benefit-icon">🤝</div>
+      <div class="benefit-title">助け合いの仕組み</div>
+      <div class="benefit-desc">品薄・物資不足のときこそ、持つ人と探す人がつながる</div>
+    </div>
+    <div class="benefit">
+      <div class="benefit-icon">💬</div>
+      <div class="benefit-title">一緒に作れる</div>
+      <div class="benefit-desc">あなたのフィードバックがサービスの機能になる</div>
+    </div>
+  </div>
+
+  <!-- フォーム -->
+  <div class="form-wrap" id="form-wrap">
+    <div class="form-title">先行登録する（無料）</div>
+    <div class="form-subtitle">1分で完了します。いつでも登録解除できます。</div>
+
+    <form id="reg-form" novalidate>
+
+      <div class="field">
+        <label class="field-label" for="name">
+          お名前・ニックネーム <span>必須</span>
+        </label>
+        <input
+          class="field-input" id="name" type="text"
+          placeholder="例：のぞむ / Nozomi / くすり屋さん"
+          required autocomplete="nickname">
+      </div>
+
+      <div class="field">
+        <label class="field-label" for="email">
+          メールアドレス <span>必須</span>
+        </label>
+        <input
+          class="field-input" id="email" type="email"
+          placeholder="例：nozomi@example.com"
+          required autocomplete="email">
+      </div>
+
+      <div class="field">
+        <label class="field-label" for="x_handle">
+          X（Twitter）アカウント <span class="opt">任意</span>
+        </label>
+        <input
+          class="field-input" id="x_handle" type="text"
+          placeholder="例：@kusuriya_ai">
+      </div>
+
+      <div class="field">
+        <label class="field-label" for="want">
+          最近「欲しいのに見つからなかった」ものは？ <span class="opt">任意</span>
+        </label>
+        <textarea
+          class="field-textarea" id="want"
+          placeholder="例：在庫切れの市販薬、廃番のスニーカー、一人暮らし向けの家具など。&#10;どんな小さなことでもOKです。このデータがサービス改善に役立ちます。"
+          rows="4"></textarea>
+      </div>
+
+      <div class="field">
+        <label class="field-label">
+          あなたはどちらとして使いたいですか？ <span class="opt">任意</span>
+        </label>
+        <div class="checkbox-group">
+          <label class="checkbox-item">
+            <input type="checkbox" name="role" value="buyer">
+            <span class="checkbox-label">🛒 買い手として使いたい（欲しいものを投稿したい）</span>
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" name="role" value="seller">
+            <span class="checkbox-label">📦 売り手として使いたい（在庫や不用品を売りたい）</span>
+          </label>
+          <label class="checkbox-item">
+            <input type="checkbox" name="role" value="both">
+            <span class="checkbox-label">🔄 両方使いたい</span>
+          </label>
+        </div>
+      </div>
+
+      <hr class="divider">
+
+      <button class="submit-btn" type="submit" id="submit-btn">
+        先行登録する（完全無料）
+      </button>
+
+      <p class="form-privacy">
+        個人情報はNOZOMIのβ版リリース通知のみに使用します。<br>
+        第三者への提供・販売は一切行いません。
+      </p>
+
+    </form>
+
+    <!-- 成功メッセージ -->
+    <div class="success-wrap" id="success-wrap">
+      <div class="success-icon">✓</div>
+      <div class="success-title">登録ありがとうございます！</div>
+      <div class="success-desc">
+        β版（2026年予定）の準備ができ次第、<br>
+        メールでご連絡します。<br><br>
+        <strong>あなたが最初のユーザーのひとりです。</strong><br>
+        一緒にNOZOMIを作りましょう。
+      </div>
+      <p class="success-share">シェアして仲間を増やしてください👇</p>
+      <a class="share-btn"
+        href="https://twitter.com/intent/tweet?text=%E3%80%8CNOZOMI%E3%80%8D%E3%81%AE%E5%85%88%E8%A1%8C%E7%99%BB%E9%8C%B2%E3%81%97%E3%81%BE%E3%81%97%E3%81%9F%EF%BC%81%0A%0A%E6%AC%B2%E3%81%97%E3%81%84%E3%82%82%E3%81%AE%E3%82%92%E6%8A%95%E7%A8%BF%E3%81%99%E3%82%8B%E3%81%A8%E5%A3%B2%E3%82%8A%E6%89%8B%E3%81%8C%E9%9B%86%E3%81%BE%E3%82%8B%E3%80%81%E3%83%A1%E3%83%AB%E3%82%AB%E3%83%AA%E3%81%AE%E9%80%86%E3%83%90%E3%83%BC%E3%82%B8%E3%83%A7%E3%83%B3%E3%80%82%0A%0A%40kusuriya_ai%E3%81%95%E3%82%93%E3%81%8C%E4%BD%9C%E3%81%A3%E3%81%A6%E3%81%84%E3%82%8B%E3%82%B5%E3%83%BC%E3%83%93%E3%82%B9%E3%81%A7%E3%81%99%E3%80%82%20%23NOZOMI"
+        target="_blank" rel="noopener">
+        𝕏 でシェアする
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- ソーシャルプルーフ -->
+<div class="proof">
+  <div class="proof-title">— 開発者より</div>
+  <div class="proof-items">
+    <div class="proof-item">
+      <div class="proof-avatar">💊</div>
+      <div>
+        <div class="proof-name">希（のぞむ）｜開発者</div>
+        <div class="proof-text">
+          ドラッグストアで8年働いて、毎日「この薬どこで買えますか？」と聞かれ続けてきました。欲しい人はいる。持っている人もいる。でも出会えていない。コロナ禍のマスク不足のような「物資が足りないとき」こそ、人と人が助け合える仕組みが必要だと痛感しました。このミスマッチをAIで解決したくてNOZOMIを作っています。まだ完成していないけど、一緒に作ってくれる人を待っています。
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">NOZOMI<span>.</span></div>
+  <p>© 2026 NOZOMI. Demand First Marketplace. 群馬発、日本へ。</p>
+  <p>β版 2026年公開予定</p>
+</footer>
+
+<script>
+// ===== カウンターアニメーション =====
+// ここの数字を実際の登録者数に手動で更新してください
+const REGISTERED_COUNT = 0;
+
+function animateCounter(target) {
+  const el = document.getElementById('counter');
+  const duration = 1200;
+  const start = performance.now();
+  const update = (now) => {
+    const progress = Math.min((now - start) / duration, 1);
+    const ease = 1 - Math.pow(1 - progress, 3);
+    el.textContent = Math.round(ease * target);
+    if (progress < 1) requestAnimationFrame(update);
+  };
+  requestAnimationFrame(update);
+}
+
+// ページ読み込み後にカウンター開始
+window.addEventListener('load', () => {
+  setTimeout(() => animateCounter(REGISTERED_COUNT), 600);
+});
+
+// ===== フォーム送信処理 =====
+document.getElementById('reg-form').addEventListener('submit', async (e) => {
+  e.preventDefault();
+
+  const name = document.getElementById('name').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const xHandle = document.getElementById('x_handle').value.trim();
+  const want = document.getElementById('want').value.trim();
+  const roles = [...document.querySelectorAll('input[name="role"]:checked')].map(el => el.value);
+
+  // バリデーション
+  if (!name) {
+    alert('お名前・ニックネームを入力してください');
+    document.getElementById('name').focus();
+    return;
+  }
+  if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    alert('正しいメールアドレスを入力してください');
+    document.getElementById('email').focus();
+    return;
+  }
+
+  const btn = document.getElementById('submit-btn');
+  btn.disabled = true;
+  btn.textContent = '送信中…';
+
+  // ===== Google Apps Script に送信する場合 =====
+  // 下のURLをあなたのGoogle Apps ScriptのURLに置き換えてください
+  // 設定方法はファイル末尾のコメントを参照
+  const GAS_URL = 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE';
+
+  try {
+    if (GAS_URL !== 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE') {
+      await fetch(GAS_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, xHandle, want, roles: roles.join(','), timestamp: new Date().toISOString() }),
+        mode: 'no-cors'
+      });
+    }
+
+    // 成功表示
+    document.getElementById('reg-form').style.display = 'none';
+    document.getElementById('success-wrap').style.display = 'block';
+
+    // カウンター+1
+    const current = parseInt(document.getElementById('counter').textContent);
+    document.getElementById('counter').textContent = current + 1;
+
+  } catch (err) {
+    // エラーでも成功表示（送信自体は完了している場合が多い）
+    document.getElementById('reg-form').style.display = 'none';
+    document.getElementById('success-wrap').style.display = 'block';
+  }
+});
+</script>
+
+<!--
+===== Google スプレッドシートに自動保存する設定方法 =====
+
+1. Googleスプレッドシートを新規作成
+   - 列を作る：A=タイムスタンプ / B=名前 / C=メール / D=Xアカウント / E=欲しいもの / F=役割
+
+2. スプレッドシートのメニュー「拡張機能」→「Apps Script」を開く
+
+3. 以下のコードを貼り付けて保存：
+
+function doPost(e) {
+  const sheet = SpreadsheetApp.getActiveSheet();
+  const data = JSON.parse(e.postData.contents);
+  sheet.appendRow([
+    data.timestamp,
+    data.name,
+    data.email,
+    data.xHandle,
+    data.want,
+    data.roles
+  ]);
+  return ContentService.createTextOutput('ok');
+}
+
+4. 「デプロイ」→「新しいデプロイ」→「ウェブアプリ」
+   - 実行ユーザー：自分
+   - アクセス：全員
+   - デプロイをクリック
+
+5. 発行されたURLをこのHTMLファイルの
+   const GAS_URL = 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE';
+   の部分に貼り付ける
+
+これで登録データが自動的にスプレッドシートに保存されます。
+費用：完全ゼロ
+-->
+</html>
